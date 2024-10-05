@@ -2,6 +2,7 @@ package com.devtiro.database.dao;
 
 import com.devtiro.database.domain.Author;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AuthorDao {
@@ -9,4 +10,5 @@ public interface AuthorDao {
 
     Optional<Author> findOne(long authorId);
 
+    List<Author> find();
 }

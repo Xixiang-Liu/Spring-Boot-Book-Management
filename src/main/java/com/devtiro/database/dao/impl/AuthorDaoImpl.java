@@ -21,7 +21,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void create(Author author) {
+    public void  create(Author author) {
         jdbcTemplate.update(
                 "INSERT INTO authors (id, name, age) VALUES (?, ?, ?)",
                 author.getId(), author.getName(), author.getAge()
@@ -49,5 +49,13 @@ public class AuthorDaoImpl implements AuthorDao {
                     .age(rs.getInt("age"))
                     .build();
         }
+    }
+
+    @Override
+    public List<Author> find() {
+        return jdbcTemplate.query(
+                "SELECT id, name, age FROM authors",
+                new AuthorRowMapper()
+        );
     }
 }

@@ -65,12 +65,12 @@ public class AuthorJpaRepositoryIntegrationTests {
         assertThat(result.get()).isEqualTo(authorJpaA);
     }
 
-//    @Test
-//    public void testThatAuthorCanBeDeleted() {
-//        AuthorJdbc authorJdbcA = TestDataUtil.createTestAuthorA();
-//        underTest.create(authorJdbcA);
-//        underTest.delete(authorJdbcA.getId());
-//        Optional<AuthorJdbc> result = underTest.findOne(authorJdbcA.getId());
-//        assertThat(result).isEmpty();
-//    }
+    @Test
+    public void testThatAuthorCanBeDeleted() {
+        AuthorJpa authorJpaA = TestDataUtilJpa.createTestAuthorA();
+        underTest.save(authorJpaA);
+        underTest.deleteById(authorJpaA.getId());
+        Optional<AuthorJpa> result = underTest.findById(authorJpaA.getId());
+        assertThat(result).isEmpty();
+    }
 }

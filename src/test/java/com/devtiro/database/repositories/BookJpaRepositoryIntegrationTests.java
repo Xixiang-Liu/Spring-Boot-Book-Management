@@ -78,18 +78,16 @@ public class BookJpaRepositoryIntegrationTests {
         assertThat(result.get()).isEqualTo(bookJpaA);
     }
 
-//    @Test
-//    public void testThatBookCanBeDeleted() {
-//        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
-//        authorDao.create(authorJdbc);
-//
-//        BookJdbc bookJdbcA = TestDataUtilJdbc.createTestBookA();
-//        bookJdbcA.setAuthorId(authorJdbc.getId());
-//        underTest.create(bookJdbcA);
-//
-//        underTest.delete(bookJdbcA.getIsbn());
-//
-//        Optional<BookJdbc> result = underTest.findOne(bookJdbcA.getIsbn());
-//        assertThat(result).isEmpty();
-//    }
+    @Test
+    public void testThatBookCanBeDeleted() {
+        AuthorJpa authorJpa = TestDataUtilJpa.createTestAuthorA();
+
+        BookJpa bookJpaA = TestDataUtilJpa.createTestBookA(authorJpa);
+        underTest.save(bookJpaA);
+
+        underTest.deleteById(bookJpaA.getIsbn());
+
+        Optional<BookJpa> result = underTest.findById(bookJpaA.getIsbn());
+        assertThat(result).isEmpty();
+    }
 }

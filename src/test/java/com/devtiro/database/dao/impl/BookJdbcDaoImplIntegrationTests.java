@@ -1,6 +1,6 @@
 package com.devtiro.database.dao.impl;
 
-import com.devtiro.database.TestDataUtil;
+import com.devtiro.database.TestDataUtilJdbc;
 import com.devtiro.database.dao.AuthorDao;
 import com.devtiro.database.domain.AuthorJdbc;
 import com.devtiro.database.domain.BookJdbc;
@@ -33,9 +33,9 @@ public class BookJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatBookCanBeCreatedAndRecalled() {
-        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
         authorDao.create(authorJdbc);
-        BookJdbc bookJdbc = TestDataUtil.createTestBookA();
+        BookJdbc bookJdbc = TestDataUtilJdbc.createTestBookA();
         bookJdbc.setAuthorId(authorJdbc.getId());
         underTest.create(bookJdbc);
         Optional<BookJdbc> result = underTest.findOne(bookJdbc.getIsbn());
@@ -45,18 +45,18 @@ public class BookJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatMultipleBooksCanBeCreatedAndRecalled() {
-        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
         authorDao.create(authorJdbc);
 
-        BookJdbc bookJdbcA = TestDataUtil.createTestBookA();
+        BookJdbc bookJdbcA = TestDataUtilJdbc.createTestBookA();
         bookJdbcA.setAuthorId(authorJdbc.getId());
         underTest.create(bookJdbcA);
 
-        BookJdbc bookJdbcB = TestDataUtil.createTestBookB();
+        BookJdbc bookJdbcB = TestDataUtilJdbc.createTestBookB();
         bookJdbcB.setAuthorId(authorJdbc.getId());
         underTest.create(bookJdbcB);
 
-        BookJdbc bookJdbcC = TestDataUtil.createTestBookC();
+        BookJdbc bookJdbcC = TestDataUtilJdbc.createTestBookC();
         bookJdbcC.setAuthorId(authorJdbc.getId());
         underTest.create(bookJdbcC);
 
@@ -68,10 +68,10 @@ public class BookJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatBookCanBeUpdated() {
-        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
         authorDao.create(authorJdbc);
 
-        BookJdbc bookJdbcA = TestDataUtil.createTestBookA();
+        BookJdbc bookJdbcA = TestDataUtilJdbc.createTestBookA();
         bookJdbcA.setAuthorId(authorJdbc.getId());
         underTest.create(bookJdbcA);
 
@@ -85,10 +85,10 @@ public class BookJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatBookCanBeDeleted() {
-        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
         authorDao.create(authorJdbc);
 
-        BookJdbc bookJdbcA = TestDataUtil.createTestBookA();
+        BookJdbc bookJdbcA = TestDataUtilJdbc.createTestBookA();
         bookJdbcA.setAuthorId(authorJdbc.getId());
         underTest.create(bookJdbcA);
 

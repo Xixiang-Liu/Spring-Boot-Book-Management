@@ -1,6 +1,6 @@
 package com.devtiro.database.dao.impl;
 
-import com.devtiro.database.TestDataUtil;
+import com.devtiro.database.TestDataUtilJdbc;
 import com.devtiro.database.domain.BookJdbc;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,7 @@ public class BookJdbcDaoImplTests {
 
     @Test
     public void testThatCreateBookGeneratesCorrectSql() {
-        BookJdbc bookJdbc = TestDataUtil.createTestBookA();
+        BookJdbc bookJdbc = TestDataUtilJdbc.createTestBookA();
 
         underTest.create(bookJdbc);
 
@@ -57,7 +57,7 @@ public class BookJdbcDaoImplTests {
 
     @Test
     public void testThatUpdateGeneratesCorrectSql() {
-        BookJdbc bookJdbc = TestDataUtil.createTestBookA();
+        BookJdbc bookJdbc = TestDataUtilJdbc.createTestBookA();
         underTest.update("978-1-2345-6789-0", bookJdbc);
         verify(jdbcTemplate).update(
                 "UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?",

@@ -1,6 +1,6 @@
 package com.devtiro.database.dao.impl;
 
-import com.devtiro.database.TestDataUtil;
+import com.devtiro.database.TestDataUtilJdbc;
 import com.devtiro.database.domain.AuthorJdbc;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,7 @@ public class AuthorJdbcDaoImplTests {
 
     @Test
     public void testThatCreateAuthorGeneratesCorrectSql() {
-        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
 
         underTest.create(authorJdbc);
 
@@ -56,7 +56,7 @@ public class AuthorJdbcDaoImplTests {
 
     @Test
     public void testThatUpdateGeneratesCorrectSql() {
-        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
         underTest.update(authorJdbc.getId(), authorJdbc);
 
         verify(jdbcTemplate).update(

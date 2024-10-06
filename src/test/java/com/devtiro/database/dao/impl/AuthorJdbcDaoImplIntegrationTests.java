@@ -1,6 +1,6 @@
 package com.devtiro.database.dao.impl;
 
-import com.devtiro.database.TestDataUtil;
+import com.devtiro.database.TestDataUtilJdbc;
 import com.devtiro.database.domain.AuthorJdbc;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ public class AuthorJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatAuthorCanBeCreatedAndRecalled() {
-        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtilJdbc.createTestAuthorA();
         underTest.create(authorJdbc);
         Optional<AuthorJdbc> result = underTest.findOne(authorJdbc.getId());
         assertThat(result).isPresent();
@@ -37,11 +37,11 @@ public class AuthorJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatMultipleAuthorsCanBeCreatedAndRecalled() {
-        AuthorJdbc authorJdbcA = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbcA = TestDataUtilJdbc.createTestAuthorA();
         underTest.create(authorJdbcA);
-        AuthorJdbc authorJdbcB = TestDataUtil.createTestAuthorB();
+        AuthorJdbc authorJdbcB = TestDataUtilJdbc.createTestAuthorB();
         underTest.create(authorJdbcB);
-        AuthorJdbc authorJdbcC = TestDataUtil.createTestAuthorC();
+        AuthorJdbc authorJdbcC = TestDataUtilJdbc.createTestAuthorC();
         underTest.create(authorJdbcC);
 
         List<AuthorJdbc> result = underTest.find();
@@ -52,7 +52,7 @@ public class AuthorJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatAuthorCanBeUpdated() {
-        AuthorJdbc authorJdbcA = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbcA = TestDataUtilJdbc.createTestAuthorA();
         underTest.create(authorJdbcA);
         authorJdbcA.setName("UPDATED");
         underTest.update(authorJdbcA.getId(), authorJdbcA);
@@ -63,7 +63,7 @@ public class AuthorJdbcDaoImplIntegrationTests {
 
     @Test
     public void testThatAuthorCanBeDeleted() {
-        AuthorJdbc authorJdbcA = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbcA = TestDataUtilJdbc.createTestAuthorA();
         underTest.create(authorJdbcA);
         underTest.delete(authorJdbcA.getId());
         Optional<AuthorJdbc> result = underTest.findOne(authorJdbcA.getId());

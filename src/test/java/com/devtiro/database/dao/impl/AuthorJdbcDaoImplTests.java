@@ -1,7 +1,7 @@
 package com.devtiro.database.dao.impl;
 
 import com.devtiro.database.TestDataUtil;
-import com.devtiro.database.domain.Author;
+import com.devtiro.database.domain.AuthorJdbc;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class AuthorDaoImplTests {
+public class AuthorJdbcDaoImplTests {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
@@ -24,9 +24,9 @@ public class AuthorDaoImplTests {
 
     @Test
     public void testThatCreateAuthorGeneratesCorrectSql() {
-        Author author = TestDataUtil.createTestAuthorA();
+        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
 
-        underTest.create(author);
+        underTest.create(authorJdbc);
 
         verify(jdbcTemplate).update(
                 eq("INSERT INTO authors (id, name, age) VALUES (?, ?, ?)"),
@@ -56,8 +56,8 @@ public class AuthorDaoImplTests {
 
     @Test
     public void testThatUpdateGeneratesCorrectSql() {
-        Author author = TestDataUtil.createTestAuthorA();
-        underTest.update(author.getId(), author);
+        AuthorJdbc authorJdbc = TestDataUtil.createTestAuthorA();
+        underTest.update(authorJdbc.getId(), authorJdbc);
 
         verify(jdbcTemplate).update(
                 "UPDATE authors SET id = ?, name = ?, age = ? WHERE id = ?",

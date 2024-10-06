@@ -1,7 +1,7 @@
 package com.devtiro.database.dao.impl;
 
 import com.devtiro.database.TestDataUtil;
-import com.devtiro.database.domain.Book;
+import com.devtiro.database.domain.BookJdbc;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class BookDaoImplTests {
+public class BookJdbcDaoImplTests {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
@@ -24,9 +24,9 @@ public class BookDaoImplTests {
 
     @Test
     public void testThatCreateBookGeneratesCorrectSql() {
-        Book book = TestDataUtil.createTestBookA();
+        BookJdbc bookJdbc = TestDataUtil.createTestBookA();
 
-        underTest.create(book);
+        underTest.create(bookJdbc);
 
         verify(jdbcTemplate).update(
                 eq("INSERT INTO books (isbn, title, author_id) VALUES (?, ?, ?)"),
@@ -57,8 +57,8 @@ public class BookDaoImplTests {
 
     @Test
     public void testThatUpdateGeneratesCorrectSql() {
-        Book book = TestDataUtil.createTestBookA();
-        underTest.update("978-1-2345-6789-0", book);
+        BookJdbc bookJdbc = TestDataUtil.createTestBookA();
+        underTest.update("978-1-2345-6789-0", bookJdbc);
         verify(jdbcTemplate).update(
                 "UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?",
                 "978-1-2345-6789-0", "The Shadow in the Attic", 1L, "978-1-2345-6789-0"

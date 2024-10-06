@@ -1,7 +1,7 @@
 package com.devtiro.database.dao.impl;
 
 import com.devtiro.database.dao.AuthorDao;
-import com.devtiro.database.domain.Author;
+import com.devtiro.database.domain.AuthorJdbc;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -21,16 +21,16 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void  create(Author author) {
+    public void  create(AuthorJdbc authorJdbc) {
         jdbcTemplate.update(
                 "INSERT INTO authors (id, name, age) VALUES (?, ?, ?)",
-                author.getId(), author.getName(), author.getAge()
+                authorJdbc.getId(), authorJdbc.getName(), authorJdbc.getAge()
         );
     }
 
     @Override
-    public Optional<Author> findOne(long authorId) {
-        List<Author> results = jdbcTemplate.query(
+    public Optional<AuthorJdbc> findOne(long authorId) {
+        List<AuthorJdbc> results = jdbcTemplate.query(
                 "SELECT id, name, age FROM authors WHERE id = ? LIMIT 1",
                 new AuthorRowMapper(),
                 authorId
@@ -39,11 +39,11 @@ public class AuthorDaoImpl implements AuthorDao {
         return results.stream().findFirst();
     }
 
-    public static class AuthorRowMapper implements RowMapper<Author> {
+    public static class AuthorRowMapper implements RowMapper<AuthorJdbc> {
 
         @Override
-        public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return Author.builder()
+        public AuthorJdbc mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return AuthorJdbc.builder()
                     .id(rs.getLong("id"))
                     .name(rs.getString("name"))
                     .age(rs.getInt("age"))
@@ -52,7 +52,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public List<Author> find() {
+    public List<AuthorJdbc> find() {
         return jdbcTemplate.query(
                 "SELECT id, name, age FROM authors",
                 new AuthorRowMapper()
@@ -60,10 +60,10 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void update(long id, Author author) {
+    public void update(long id, AuthorJdbc authorJdbc) {
         jdbcTemplate.update(
                 "UPDATE authors SET id = ?, name = ?, age = ? WHERE id = ?",
-                author.getId(), author.getName(), author.getAge(), id
+                authorJdbc.getId(), authorJdbc.getName(), authorJdbc.getAge(), id
         );
     }
 

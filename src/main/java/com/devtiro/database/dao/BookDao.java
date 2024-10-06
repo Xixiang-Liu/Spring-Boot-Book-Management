@@ -1,19 +1,19 @@
 package com.devtiro.database.dao;
 
-import com.devtiro.database.domain.Book;
+import com.devtiro.database.domain.BookJdbc;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface BookDao {
 
-    void create(Book book);
+    void create(BookJdbc bookJdbc);
 
-    Optional<Book> findOne(String isbn);
+    Optional<BookJdbc> findOne(String isbn);
 
-    List<Book> find();
+    List<BookJdbc> find();
 
-    void update(String isbn, Book book);
+    void update(String isbn, BookJdbc bookJdbc);
 
     void delete(String isbn);
 }

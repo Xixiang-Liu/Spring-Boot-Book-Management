@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,32 +39,32 @@ public class AuthorJpaRepositoryIntegrationTests {
         assertThat(result.get()).isEqualTo(authorJpa);
     }
 
-//    @Test
-//    public void testThatMultipleAuthorsCanBeCreatedAndRecalled() {
-//        AuthorJdbc authorJdbcA = TestDataUtil.createTestAuthorA();
-//        underTest.create(authorJdbcA);
-//        AuthorJdbc authorJdbcB = TestDataUtil.createTestAuthorB();
-//        underTest.create(authorJdbcB);
-//        AuthorJdbc authorJdbcC = TestDataUtil.createTestAuthorC();
-//        underTest.create(authorJdbcC);
-//
-//        List<AuthorJdbc> result = underTest.find();
-//        assertThat(result)
-//                .hasSize(3)
-//                .contains(authorJdbcA, authorJdbcB, authorJdbcC);
-//    }
-//
-//    @Test
-//    public void testThatAuthorCanBeUpdated() {
-//        AuthorJdbc authorJdbcA = TestDataUtil.createTestAuthorA();
-//        underTest.create(authorJdbcA);
-//        authorJdbcA.setName("UPDATED");
-//        underTest.update(authorJdbcA.getId(), authorJdbcA);
-//        Optional<AuthorJdbc> result = underTest.findOne(authorJdbcA.getId());
-//        assertThat(result).isPresent();
-//        assertThat(result.get()).isEqualTo(authorJdbcA);
-//    }
-//
+    @Test
+    public void testThatMultipleAuthorsCanBeCreatedAndRecalled() {
+        AuthorJpa authorJpaA = TestDataUtilJpa.createTestAuthorA();
+        underTest.save(authorJpaA);
+        AuthorJpa authorJpaB = TestDataUtilJpa.createTestAuthorB();
+        underTest.save(authorJpaB);
+        AuthorJpa authorJpaC = TestDataUtilJpa.createTestAuthorC();
+        underTest.save(authorJpaC);
+
+        Iterable<AuthorJpa> result = underTest.findAll();
+        assertThat(result)
+                .hasSize(3)
+                .containsExactly(authorJpaA, authorJpaB, authorJpaC);
+    }
+
+    @Test
+    public void testThatAuthorCanBeUpdated() {
+        AuthorJpa authorJpaA = TestDataUtilJpa.createTestAuthorA();
+        underTest.save(authorJpaA);
+        authorJpaA.setName("UPDATED");
+        underTest.save(authorJpaA);
+        Optional<AuthorJpa> result = underTest.findById(authorJpaA.getId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(authorJpaA);
+    }
+
 //    @Test
 //    public void testThatAuthorCanBeDeleted() {
 //        AuthorJdbc authorJdbcA = TestDataUtil.createTestAuthorA();

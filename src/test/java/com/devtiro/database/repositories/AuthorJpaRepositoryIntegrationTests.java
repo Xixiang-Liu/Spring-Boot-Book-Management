@@ -73,4 +73,17 @@ public class AuthorJpaRepositoryIntegrationTests {
         Optional<AuthorJpa> result = underTest.findById(authorJpaA.getId());
         assertThat(result).isEmpty();
     }
+
+    @Test
+    public void testThatGetAuthorsWithAgeLessThan() {
+        AuthorJpa authorJpaA = TestDataUtilJpa.createTestAuthorA();
+        underTest.save(authorJpaA);
+        AuthorJpa authorJpaB = TestDataUtilJpa.createTestAuthorB();
+        underTest.save(authorJpaB);
+        AuthorJpa authorJpaC = TestDataUtilJpa.createTestAuthorC();
+        underTest.save(authorJpaC);
+
+        Iterable<AuthorJpa> result = underTest.ageLessThan(50);
+        assertThat(result).containsExactly(authorJpaB, authorJpaC);
+    }
 }

@@ -86,4 +86,17 @@ public class AuthorJpaRepositoryIntegrationTests {
         Iterable<AuthorJpa> result = underTest.ageLessThan(50);
         assertThat(result).containsExactly(authorJpaB, authorJpaC);
     }
+
+    @Test
+    public void testThatGetAuthorsWithAgeGreaterThan() {
+        AuthorJpa authorJpaA = TestDataUtilJpa.createTestAuthorA();
+        underTest.save(authorJpaA);
+        AuthorJpa authorJpaB = TestDataUtilJpa.createTestAuthorB();
+        underTest.save(authorJpaB);
+        AuthorJpa authorJpaC = TestDataUtilJpa.createTestAuthorC();
+        underTest.save(authorJpaC);
+
+        Iterable<AuthorJpa> result =  underTest.findAuthorsWithAgeGreaterThan(50);
+        assertThat(result).containsExactly(authorJpaA);
+    }
 }

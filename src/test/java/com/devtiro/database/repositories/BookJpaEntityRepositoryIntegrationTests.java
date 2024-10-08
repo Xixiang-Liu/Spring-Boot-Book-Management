@@ -33,7 +33,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
     @Test
     public void testThatBookCanBeCreatedAndRecalled() {
         AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
-        BookJpaEntity bookJpaEntity = TestDataUtilJpa.createTestBookA(authorJpaEntity);
+        BookJpaEntity bookJpaEntity = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntity);
         Optional<BookJpaEntity> result = underTest.findById(bookJpaEntity.getIsbn());
         assertThat(result).isPresent();
@@ -44,7 +44,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
     public void testThatMultipleBooksCanBeCreatedAndRecalled() {
         AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
 
-        BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookA(authorJpaEntity);
+        BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntityA);
         BookJpaEntity bookJpaEntityB = TestDataUtilJpa.createTestBookB(authorJpaEntity);
         underTest.save(bookJpaEntityB);
@@ -61,7 +61,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
     public void testThatBookCanBeUpdated() {
         AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
 
-        BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookA(authorJpaEntity);
+        BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntityA);
 
         bookJpaEntityA.setTitle("UPDATED");
@@ -76,7 +76,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
     public void testThatBookCanBeDeleted() {
         AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
 
-        BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookA(authorJpaEntity);
+        BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntityA);
 
         underTest.deleteById(bookJpaEntityA.getIsbn());

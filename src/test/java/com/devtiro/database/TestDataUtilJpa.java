@@ -1,5 +1,7 @@
 package com.devtiro.database;
 
+import com.devtiro.database.domain.dto.AuthorDto;
+import com.devtiro.database.domain.dto.BookDto;
 import com.devtiro.database.domain.entities.AuthorJpaEntity;
 import com.devtiro.database.domain.entities.BookJpaEntity;
 
@@ -32,11 +34,19 @@ public final class TestDataUtilJpa {
                 .build();
     }
 
-    public static BookJpaEntity createTestBookA(final AuthorJpaEntity authorJpaEntity) {
+    public static BookJpaEntity createTestBookEntityA(final AuthorJpaEntity authorJpaEntity) {
         return BookJpaEntity.builder()
                 .isbn("978-1-2345-6789-0")
                 .title("The Shadow in the Attic")
                 .authorJpaEntity(authorJpaEntity)
+                .build();
+    }
+
+    public static BookDto createTestBookDtoA(final AuthorDto author) {
+        return BookDto.builder()
+                .isbn("978-1-2345-6789-0")
+                .title("The Shadow in the Attic")
+                .author(author)
                 .build();
     }
 

@@ -1,60 +1,58 @@
 package com.devtiro.database;
 
-import com.devtiro.database.domain.AuthorJdbc;
-import com.devtiro.database.domain.AuthorJpa;
-import com.devtiro.database.domain.BookJdbc;
-import com.devtiro.database.domain.BookJpa;
+import com.devtiro.database.domain.entities.AuthorJpaEntity;
+import com.devtiro.database.domain.entities.BookJpaEntity;
 
 public final class TestDataUtilJpa {
     private TestDataUtilJpa() {
 
     }
 
-    public static AuthorJpa createTestAuthorA() {
-        return AuthorJpa.builder()
+    public static AuthorJpaEntity createTestAuthorA() {
+        return AuthorJpaEntity.builder()
                 .id(1L)
                 .name("Abigail Rose")
                 .age(80)
                 .build();
     }
 
-    public static AuthorJpa createTestAuthorB() {
-        return AuthorJpa.builder()
+    public static AuthorJpaEntity createTestAuthorB() {
+        return AuthorJpaEntity.builder()
                 .id(2L)
                 .name("Thomas Cronin")
                 .age(44)
                 .build();
     }
 
-    public static AuthorJpa createTestAuthorC() {
-        return AuthorJpa.builder()
+    public static AuthorJpaEntity createTestAuthorC() {
+        return AuthorJpaEntity.builder()
                 .id(3L)
                 .name("Jesse A Casey")
                 .age(24)
                 .build();
     }
 
-    public static BookJpa createTestBookA(final AuthorJpa authorJpa) {
-        return BookJpa.builder()
+    public static BookJpaEntity createTestBookA(final AuthorJpaEntity authorJpaEntity) {
+        return BookJpaEntity.builder()
                 .isbn("978-1-2345-6789-0")
                 .title("The Shadow in the Attic")
-                .authorJpa(authorJpa)
+                .authorJpaEntity(authorJpaEntity)
                 .build();
     }
 
-    public static BookJpa createTestBookB(final AuthorJpa authorJpa) {
-        return BookJpa.builder()
+    public static BookJpaEntity createTestBookB(final AuthorJpaEntity authorJpaEntity) {
+        return BookJpaEntity.builder()
                 .isbn("978-1-2345-6789-1")
                 .title("Beyond the Horizon")
-                .authorJpa(authorJpa)
+                .authorJpaEntity(authorJpaEntity)
                 .build();
     }
 
-    public static BookJpa createTestBookC(final AuthorJpa authorJpa) {
-        return BookJpa.builder()
+    public static BookJpaEntity createTestBookC(final AuthorJpaEntity authorJpaEntity) {
+        return BookJpaEntity.builder()
                 .isbn("978-1-2345-6789-2")
                 .title("The Last Ember")
-                .authorJpa(authorJpa)
+                .authorJpaEntity(authorJpaEntity)
                 .build();
     }
 }

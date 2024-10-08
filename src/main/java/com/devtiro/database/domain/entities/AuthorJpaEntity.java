@@ -1,4 +1,4 @@
-package com.devtiro.database.domain;
+package com.devtiro.database.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "authors")
-public class AuthorJpa {
+public class AuthorJpaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")

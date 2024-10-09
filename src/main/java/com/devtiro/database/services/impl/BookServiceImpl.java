@@ -46,4 +46,14 @@ public class BookServiceImpl implements BookService {
     public boolean isExists(String isbn) {
         return bookJpaRepository.existsById(isbn);
     }
+
+    @Override
+    public BookJpaEntity partialUpdate(String isbn, BookJpaEntity bookEntity) {
+        bookEntity.setIsbn(isbn);
+
+        return bookJpaRepository.findById(isbn).map(existingBook -> {
+            Optional.ofNullable(bookEntity.getTitle()).ifPresent(existingBook::setTitle);
+            return bookJpaRepository.save(existingBook);
+        }).orElseThrow(() -> new RuntimeException("Book does not exist"));
+    }
 }

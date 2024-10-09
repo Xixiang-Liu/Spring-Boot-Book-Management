@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AuthorService {
-    AuthorJpaEntity createAuthor(AuthorJpaEntity author);
+    AuthorJpaEntity save(AuthorJpaEntity author);
 
     List<AuthorJpaEntity> findAll();
 
     Optional<AuthorJpaEntity> findOne(Long id);
 
-    AuthorJpaEntity save(AuthorJpaEntity testAuthorEntityA);
+    boolean isExists(Long id);
 }

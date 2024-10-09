@@ -1,6 +1,7 @@
 package com.devtiro.database.controllers;
 
 import com.devtiro.database.TestDataUtilJpa;
+import com.devtiro.database.domain.dto.AuthorDto;
 import com.devtiro.database.domain.entities.AuthorJpaEntity;
 import com.devtiro.database.services.AuthorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,7 +83,7 @@ public class AuthorControllerIntegrationTests {
     @Test
     public void testThatListAuthorsReturnsListOfAuthors() throws Exception {
         AuthorJpaEntity testAuthorEntity = TestDataUtilJpa.createTestAuthorEntityA();
-        authorService.createAuthor(testAuthorEntity);
+        authorService.save(testAuthorEntity);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/authors")
@@ -119,5 +120,43 @@ public class AuthorControllerIntegrationTests {
                 MockMvcRequestBuilders.get("/authors/99")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void testThatFullUpdateAuthorReturnsHttpStatus4200WhenAuthorExists() throws Exception {
+        AuthorJpaEntity testAuthorEntityA = TestDataUtilJpa.createTestAuthorEntityA();
+        AuthorJpaEntity savedAuthor = authorService.save(testAuthorEntityA);
+
+        AuthorDto testAuthorDtoA = TestDataUtilJpa.createTestAuthorDtoA();
+        String authorDtoJson = objectMapper.writeValueAsString(testAuthorDtoA);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/authors/" + savedAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(authorDtoJson)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testThatFullUpdateUpdatesExistingAuthor() throws Exception {
+        AuthorJpaEntity testAuthorEntityA = TestDataUtilJpa.createTestAuthorEntityA();
+        AuthorJpaEntity savedAuthor = authorService.save(testAuthorEntityA);
+
+        AuthorJpaEntity authorDto = TestDataUtilJpa.createTestAuthorB();
+        authorDto.setId(savedAuthor.getId());
+
+        String authorDtoUpdateJson = objectMapper.writeValueAsString(authorDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/authors/" + savedAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(authorDtoUpdateJson)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value(authorDto.getName())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(authorDto.getAge())
+        );
     }
 }

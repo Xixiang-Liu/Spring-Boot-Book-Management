@@ -18,6 +18,14 @@ public final class TestDataUtilJpa {
                 .build();
     }
 
+    public static AuthorDto createTestAuthorDtoA() {
+        return AuthorDto.builder()
+                .id(1L)
+                .name("Abigail Rose")
+                .age(80)
+                .build();
+    }
+
     public static AuthorJpaEntity createTestAuthorB() {
         return AuthorJpaEntity.builder()
                 .id(2L)

@@ -53,4 +53,9 @@ public class AuthorServiceImpl implements AuthorService {
             return authorJpaRepository.save(existingAuthor);
         }).orElseThrow(() -> new RuntimeException("Author does not exist"));
     }
+
+    @Override
+    public void delete(Long id) {
+        authorJpaRepository.deleteById(id);
+    }
 }

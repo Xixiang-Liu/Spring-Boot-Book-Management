@@ -10,7 +10,7 @@ public final class TestDataUtilJpa {
 
     }
 
-    public static AuthorJpaEntity createTestAuthorA() {
+    public static AuthorJpaEntity createTestAuthorEntityA() {
         return AuthorJpaEntity.builder()
                 .id(1L)
                 .name("Abigail Rose")

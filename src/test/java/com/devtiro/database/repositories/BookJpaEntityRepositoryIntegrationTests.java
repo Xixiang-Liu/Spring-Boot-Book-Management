@@ -32,7 +32,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
 
     @Test
     public void testThatBookCanBeCreatedAndRecalled() {
-        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
+        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorEntityA();
         BookJpaEntity bookJpaEntity = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntity);
         Optional<BookJpaEntity> result = underTest.findById(bookJpaEntity.getIsbn());
@@ -42,7 +42,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
 
     @Test
     public void testThatMultipleBooksCanBeCreatedAndRecalled() {
-        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
+        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorEntityA();
 
         BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntityA);
@@ -59,7 +59,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
 
     @Test
     public void testThatBookCanBeUpdated() {
-        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
+        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorEntityA();
 
         BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntityA);
@@ -74,7 +74,7 @@ public class BookJpaEntityRepositoryIntegrationTests {
 
     @Test
     public void testThatBookCanBeDeleted() {
-        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorA();
+        AuthorJpaEntity authorJpaEntity = TestDataUtilJpa.createTestAuthorEntityA();
 
         BookJpaEntity bookJpaEntityA = TestDataUtilJpa.createTestBookEntityA(authorJpaEntity);
         underTest.save(bookJpaEntityA);

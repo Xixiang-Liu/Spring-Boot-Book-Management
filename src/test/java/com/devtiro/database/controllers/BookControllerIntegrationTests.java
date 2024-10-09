@@ -2,6 +2,8 @@ package com.devtiro.database.controllers;
 
 import com.devtiro.database.TestDataUtilJpa;
 import com.devtiro.database.domain.dto.BookDto;
+import com.devtiro.database.domain.entities.BookJpaEntity;
+import com.devtiro.database.services.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,10 +28,13 @@ public class BookControllerIntegrationTests {
 
     private ObjectMapper objectMapper;
 
+    private BookService bookService;
+
     @Autowired
-    public BookControllerIntegrationTests(MockMvc mockMvc, ObjectMapper objectMapper) {
+    public BookControllerIntegrationTests(MockMvc mockMvc, ObjectMapper objectMappe, BookService bookService) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
+        this.bookService = bookService;
     }
 
     @Test
@@ -59,6 +64,31 @@ public class BookControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.isbn").value(bookDto.getIsbn())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.title").value(bookDto.getTitle())
+        );
+    }
+
+    @Test
+    public void testThatListBooksReturnsHttpStatus200Ok() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
+        );
+    }
+
+    @Test
+    public void testThatListBooksReturnsBook() throws Exception {
+        BookJpaEntity testBookEntityA = TestDataUtilJpa.createTestBookEntityA(null);
+        bookService.createBook(testBookEntityA.getIsbn(), testBookEntityA);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$[0].isbn").value("978-1-2345-6789-0")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$[0].title").value("The Shadow in the Attic")
         );
     }
 }

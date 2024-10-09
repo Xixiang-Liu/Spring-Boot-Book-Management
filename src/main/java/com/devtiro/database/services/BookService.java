@@ -7,9 +7,11 @@ import java.util.Optional;
 
 public interface BookService {
 
-    BookJpaEntity createBook(String isbn, BookJpaEntity book);
+    BookJpaEntity createUpdateBook(String isbn, BookJpaEntity book);
 
     List<BookJpaEntity> findAll();
 
     Optional<BookJpaEntity> findOne(String isbn);
+
+    boolean isExists(String isbn);
 }

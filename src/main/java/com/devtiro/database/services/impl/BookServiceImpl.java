@@ -1,6 +1,7 @@
 package com.devtiro.database.services.impl;
 
 import com.devtiro.database.domain.entities.BookJpaEntity;
+import com.devtiro.database.repositories.AuthorJpaRepository;
 import com.devtiro.database.repositories.BookJpaRepository;
 import com.devtiro.database.services.BookService;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,16 @@ import java.util.stream.StreamSupport;
 @Service
 public class BookServiceImpl implements BookService {
 
+    private final AuthorJpaRepository authorJpaRepository;
     private BookJpaRepository bookJpaRepository;
 
-    public BookServiceImpl(BookJpaRepository bookJpaRepository) {
+    public BookServiceImpl(BookJpaRepository bookJpaRepository, AuthorJpaRepository authorJpaRepository) {
         this.bookJpaRepository = bookJpaRepository;
+        this.authorJpaRepository = authorJpaRepository;
     }
 
     @Override
-    public BookJpaEntity createBook(String isbn, BookJpaEntity book) {
+    public BookJpaEntity createUpdateBook(String isbn, BookJpaEntity book) {
         book.setIsbn(isbn);
         return bookJpaRepository.save(book);
     }
@@ -37,5 +40,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<BookJpaEntity> findOne(String isbn) {
         return bookJpaRepository.findById(isbn);
+    }
+
+    @Override
+    public boolean isExists(String isbn) {
+        return bookJpaRepository.existsById(isbn);
     }
 }

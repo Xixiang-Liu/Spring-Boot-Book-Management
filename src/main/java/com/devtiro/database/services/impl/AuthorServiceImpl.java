@@ -5,6 +5,10 @@ import com.devtiro.database.repositories.AuthorJpaRepository;
 import com.devtiro.database.services.AuthorService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
@@ -17,5 +21,14 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorJpaEntity createAuthor(AuthorJpaEntity authorEntity) {
         return authorJpaRepository.save(authorEntity);
+    }
+
+    @Override
+    public List<AuthorJpaEntity> findAll() {
+        return StreamSupport.stream(authorJpaRepository
+                    .findAll()
+                    .spliterator(),
+                    false)
+                .collect(Collectors.toList());
     }
 }
